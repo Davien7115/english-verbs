@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+  <title>Irregular verbs</title>
+  <style>
+      body{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 60px;
+    background-color: rgb(18, 34, 49);
+
+  }
+
+  .main{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 3px solid white;
+    border-radius: 30px;
+  }
+  .container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    
+  }
+
+  .buttonsDiv{
+    padding: 100px;
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+  }
+  .verbBox{
+    width: 100%;
+    margin: 30px;
+    border-radius: 30px;
+  }
+
+  .input{
+    color: white;
+    background-color:#022246;
+    height: 140px;
+    width: 100%;
+    font-size: 100px;
+    border-radius: 30px;
+  }
+
+  .button{
+    height: 150px;
+    width: 250px;
+    border-radius: 30px;
+    font-size: 50px;
+    background-color: rgb(16, 144, 161);
+  }
+
+  .text{
+    color: white;
+    font-size: 100px;
+  }
+
+  .texti{
+    color: white;
+    font-size: 55px;
+  }
+  </style>
+</head>
+<body>
+  <span id="word" class="text">Quetzal</span>
+  <span id="sol" class="texti">beta</span>
+  <div class= "main">
+    <div id= "Container" class= "container">
+      
+      <div id= "mean" class= "verbBox" >
+        <span id="meanText" class="text"></span>
+        <input type="text" id="inputMean" class="input">
+      </div>
+
+      <div id= "base" class= "verbBox" >
+        <span id="baseText" class="text"></span>
+        <input type="text" id="inputBase" class="input">
+      </div>
+
+      <div id= "tense" class= "verbBox">
+        <span id="tenseText" class="text"></span>
+        <input type="text" id="inputTens" class="input">
+      </div>
+
+      <div id= "participle" class= "verbBox">
+        <span id="partText" class="text"></span>
+        <input type="text" id="inputPart" class="input">
+      </div>
+
+    </div>
+
+    <div class="buttonsDiv">
+      <button id= "next" class="button"  >Next</button>
+      <button id= "check" class="button" >Check</button>
+    </div>
+
+    <button  id="fetch" class="button"   >Fetch</button>
+  </div>
+  <script> 
+    const verbs = [];
+
+
+    function restoreInputs() {
+          ["meanText", "baseText", "tenseText", "partText"].forEach(id => {
+              document.getElementById(id).textContent = "";
+          });
+
+          ["inputMean", "inputBase", "inputTens", "inputPart"].forEach(id => {
+              document.getElementById(id).value = "";
+              document.getElementById(id).style.display = "inline";
+              document.getElementById(id).style.backgroundColor = "#022246";
+          });
+          document.getElementById("word").textContent = "Quetzal";
+          document.getElementById("sol").textContent = "beta";
+          }
+    function meanCheck(verb) {
+                if (document.getElementById("inputMean").value === verbs[verb].mean){
+                    document.getElementById("inputMean").style.backgroundColor = "green";
+                } else{
+                    document.getElementById("inputMean").style.backgroundColor = "red";
+                    document.getElementById("word").textContent= verbs[verb].mean; 
+                    document.getElementById("sol").textContent= verbs[verb].base + " - " + verbs[verb].pastTense + " - " + verbs[verb].pastParti; 
+                }
+            }
+
+    function baseCheck(verb) {
+                if (document.getElementById("inputBase").value === verbs[verb].base){
+                    document.getElementById("inputBase").style.backgroundColor = "green";
+                } else{
+                    document.getElementById("inputBase").style.backgroundColor = "red";
+                    document.getElementById("word").textContent= verbs[verb].mean; 
+                    document.getElementById("sol").textContent= verbs[verb].base + " - " + verbs[verb].pastTense + " - " + verbs[verb].pastParti; 
+                }
+            }
+
+    function tenseCheck(verb) {
+                if (document.getElementById("inputTens").value ===verbs[verb].pastTense){
+                    document.getElementById("inputTens").style.backgroundColor = "green";
+                } else{
+                    document.getElementById("inputTens").style.backgroundColor = "red";
+                    document.getElementById("word").textContent= verbs[verb].mean; 
+                    document.getElementById("sol").textContent= verbs[verb].base + " - " + verbs[verb].pastTense + " - " + verbs[verb].pastParti;
+                }
+            }
+
+    function partCheck(verb) {
+                if (document.getElementById("inputPart").value === verbs[verb].pastParti){
+                    document.getElementById("inputPart").style.backgroundColor = "green";
+                } else{
+                    document.getElementById("inputPart").style.backgroundColor = "red";
+                    document.getElementById("word").textContent= verbs[verb].mean; 
+                    document.getElementById("sol").textContent= verbs[verb].base + " - " + verbs[verb].pastTense + " - " + verbs[verb].pastParti;
+                }
+            }
+
+    function checkInputs(caseValue, verb) {
+        switch(caseValue){
+            case 0:
+                //mean is the question
+                baseCheck(verb);
+                tenseCheck(verb);
+                partCheck(verb);
+                break;
+            case 1:
+                //base is the question
+                meanCheck(verb);
+                tenseCheck(verb);
+                partCheck(verb);
+                break;
+            case 2:
+                //tense is the question
+                meanCheck(verb);
+                baseCheck(verb);
+                partCheck(verb);
+                break;
+            case 3:
+                //participle is the question
+                meanCheck(verb);
+                baseCheck(verb);
+                tenseCheck(verb);
+                break;
+            default:
+                console.log("Ismeretlen eset");
+        }
+    }
+
+    document.getElementById("next").onclick = function() {
+        restoreInputs();
+        const verb = Math.floor(Math.random() * verbs.length);
+        const caseValue = Math.floor(Math.random() * 3);
+        console.log(verb,caseValue);
+        switch (caseValue) {
+          case 0:
+            console.log("Első eset");
+            document.getElementById("inputMean").style.display = "none";
+            document.getElementById("meanText").textContent = verbs[verb].mean;
+            break;
+          case 1:
+            console.log("Első eset");
+            document.getElementById("inputBase").style.display = "none";
+            document.getElementById("baseText").textContent = verbs[verb].base;
+            break;
+          case 2:
+            console.log("Második eset");
+            document.getElementById("inputTens").style.display = "none";
+            document.getElementById("tenseText").textContent = verbs[verb].pastTense;
+            break;
+          case 3:
+            console.log("Harmadik eset");
+            document.getElementById("inputPart").style.display = "none";
+            document.getElementById("partText").textContent = verbs[verb].pastParti;
+            break;
+          default:
+            console.log("Ismeretlen eset");
+        }
+        document.getElementById("check").onclick = function() {
+            checkInputs(caseValue,verb);
+        }
+    }
+
+
+    document.getElementById("fetch").onclick = function(){
+        fetch('https://raw.githubusercontent.com/Davien7115/english-verbs/refs/heads/main/irregular.json')
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Hiba a letöltés során');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Letöltés sikeres");
+            verbs.push(...data);
+            return verbs
+        })
+        .catch(error => {
+            console.error('Hiba:', error);
+        });
+        document.getElementById("fetch").disabled= true
+    };
+</script>
+</body>
+</html>
