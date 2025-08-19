@@ -123,7 +123,7 @@
           document.getElementById("sol").textContent = "beta";
           }
     function meanCheck(verb) {
-                if (document.getElementById("inputMean").value === verbs[verb].mean){
+                if (document.getElementById("inputMean").value.toLowerCase() === verbs[verb].mean){
                     document.getElementById("inputMean").style.backgroundColor = "green";
                 } else{
                     document.getElementById("inputMean").style.backgroundColor = "red";
@@ -133,7 +133,7 @@
             }
 
     function baseCheck(verb) {
-                if (document.getElementById("inputBase").value === verbs[verb].base){
+                if (document.getElementById("inputBase").value.toLowerCase() === verbs[verb].base){
                     document.getElementById("inputBase").style.backgroundColor = "green";
                 } else{
                     document.getElementById("inputBase").style.backgroundColor = "red";
@@ -143,7 +143,7 @@
             }
 
     function tenseCheck(verb) {
-                if (document.getElementById("inputTens").value ===verbs[verb].pastTense){
+                if (document.getElementById("inputTens").value.toLowerCase() ===verbs[verb].pastTense){
                     document.getElementById("inputTens").style.backgroundColor = "green";
                 } else{
                     document.getElementById("inputTens").style.backgroundColor = "red";
@@ -153,7 +153,7 @@
             }
 
     function partCheck(verb) {
-                if (document.getElementById("inputPart").value === verbs[verb].pastParti){
+                if (document.getElementById("inputPart").value.toLowerCase() === verbs[verb].pastParti){
                     document.getElementById("inputPart").style.backgroundColor = "green";
                 } else{
                     document.getElementById("inputPart").style.backgroundColor = "red";
